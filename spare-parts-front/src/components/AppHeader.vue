@@ -19,12 +19,15 @@
         </div>
         <div class="column">
           <router-link to="/login">
-          <img src="../../public/SVGs/account_circle-24px.svg" width="35" height="35">
+          <img src="../../public/SVGs/account_circle-24px.svg" width="35" height="35" title="Iniciar Sesión">
           </router-link>
         </div>
         <div class="column">
-          <img src="../../public/SVGs/shopping_cart-24px.svg" width="35" height="35">
+          <img src="../../public/SVGs/shopping_cart-24px.svg" width="35" height="35" title="Ver carrito de compras">
         </div>
+        <router-link to="/createProduct">
+          <img src="../../public/SVGs/add_box-black-18dp.svg" width="35" height="35" title="Crear un Nuevo Producto">
+        </router-link>
       </div>
     </div>
   </section>
