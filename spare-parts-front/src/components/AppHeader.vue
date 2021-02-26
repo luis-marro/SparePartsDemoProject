@@ -3,18 +3,22 @@
     <div class="hero-body">
       <div class="columns is-vcentered">
         <div class="column is-two-fifths">
-          <img src="../../public/SVGs/Logo+Name.svg" width="670" height="103">
+          <router-link to="/">
+            <img src="../../public/SVGs/Logo+Name.svg" width="670" height="103">
+          </router-link>
         </div>
         <div class="column is-half">
           <div class="field has-addons">
             <div class="control is-expanded">
               <input class="input is-info" type="text" placeholder="Qué repuesto estas buscando?">
             </div>
-            <div class="control">
-              <a class="button is-info">
-                <img src="../../public/SVGs/search-24px.svg">
-              </a>
-            </div>
+            <router-link to="/viewProducts">
+              <div class="control">
+                <a class="button is-info">
+                  <img src="../../public/SVGs/search-24px.svg">
+                </a>
+              </div>
+            </router-link>
           </div>
         </div>
         <div class="column">

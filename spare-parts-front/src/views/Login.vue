@@ -47,7 +47,7 @@
                       <div class="control">
                         <label class="radio">
                           <input type="radio" name="RememberMe">
-                          Si
+                          Recuérdame
                         </label>
                       </div>
                     </div>

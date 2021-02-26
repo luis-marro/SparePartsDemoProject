@@ -21,7 +21,7 @@
                       Nombre del Producto
                     </label>
                     <div class="control">
-                      <input class="input" type="text" placeholder="Nombre del Producto">
+                      <input class="input" type="text" placeholder="Nombre del Producto" v-model="name">
                     </div>
                   </div>
                   <div class="field">
@@ -29,7 +29,7 @@
                       Descripción
                     </label>
                     <div class="control">
-                      <input class="input" type="text" placeholder="Descripción del Producto">
+                      <input class="input" type="text" placeholder="Descripción del Producto" v-model="description">
                     </div>
                   </div>
                 </div>
@@ -39,15 +39,16 @@
                       Precio
                     </label>
                     <div class="control">
-                      <input class="input" type="text" placeholder="Precio">
+                      <input class="input" type="text" placeholder="Precio" v-model="price">
                     </div>
                   </div>
                   <div class="field">
                     <label>Categoría</label>
                     <div class="control">
                       <div class="select is-fullwidth">
-                        <select>
-                          <option disabled>Elige una Categoria</option>
+                        <select v-model="selectedCategory">
+                          <option value="" disabled selected>Elige una Categoria</option>
+                          <option v-for="category in categories" :key="category">{{category}}</option>
                         </select>
                       </div>
                     </div>
@@ -58,6 +59,13 @@
                     <p class="control">
                       <button class="button is-info is-fullwidth">
                         Carga aquí tus imágenes
+                      </button>
+                    </p>
+                  </div>
+                  <div class="field">
+                    <p class="control">
+                      <button class="button is-success is-fullwidth" v-on:click="saveProduct">
+                        Guardar Producto
                       </button>
                     </p>
                   </div>
@@ -73,7 +81,27 @@
 
 <script>
 export default {
-name: "CreatePart"
+name: "CreatePart",
+  data() {
+    return {
+      name: "",
+      price: "",
+      description: "",
+      selectedCategory: "",
+      categories: [
+          "Frenos",
+          "Motor",
+          "Refrigeración",
+          "Suspensión"
+      ]
+    }
+  },
+  methods: {
+    saveProduct: function (){
+      // add the product to the local storage
+
+    }
+  }
 }
 </script>
 

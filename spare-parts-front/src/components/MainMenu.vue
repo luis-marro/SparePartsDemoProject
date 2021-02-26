@@ -22,6 +22,9 @@
                 <option v-for="year in years" :key="year">{{year}}</option>
               </select>
             </div>
+            <div class="control is-success is-fullwidth mb-3">
+              <button class="button is-fullwidth">Agregar</button>
+            </div>
         </div>
         <img src="../../public/StockPhotos/VolvoSteering.jpg" height="655" width="871">
       </div>
