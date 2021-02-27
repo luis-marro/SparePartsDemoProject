@@ -54,6 +54,30 @@
                     </div>
                   </div>
                 </div>
+                <div class="column">
+                  <div class="container">
+                    <div class="select is-fullwidth mb-3">
+                      <select v-model="make">
+                        <option value="" disabled selected> Marca</option>
+                        <option v-for="make in makes" :key="make">{{make}}</option>
+                      </select>
+                    </div>
+                    <div class="select  is-loading is-fullwidth mb-3">
+                      <select v-model="model">
+                        <option value="" disabled selected>Modelo</option>
+                      </select>
+                    </div>
+                    <div class="select is-fullwidth mb-3">
+                      <select v-model="year">
+                        <option value="" disabled selected>Año</option>
+                        <option v-for="year in years" :key="year">{{year}}</option>
+                      </select>
+                    </div>
+                    <div class="control is-success is-fullwidth mb-3">
+                      <button class="button is-fullwidth">Agregar</button>
+                    </div>
+                  </div>
+                </div>
                 <div class="column item">
                   <div class="field">
                     <p class="control">
@@ -88,18 +112,47 @@ name: "CreatePart",
       price: "",
       description: "",
       selectedCategory: "",
+      make: "",
+      model: "",
+      year: "",
       categories: [
           "Frenos",
           "Motor",
           "Refrigeración",
           "Suspensión"
+      ],
+      cars : [
+        {make: "Mitsubishi", model: "Lancer"},
+        {make: "Mazda", model: "Mazda3"},
+        {make: "Mazda", model: "Mazda6"},
+        {make: "Volvo", model: "S40"},
+        {make: "Volvo", model: "C30"},
+        {make: "Mitsubishi", model: "Eclipse Cross"},
+      ],
+      years: [
+        2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020
+      ],
+      makes : [
+        "Mitsubishi",
+        "Mazda",
+        "Volvo",
       ]
     }
   },
   methods: {
     saveProduct: function (){
       // add the product to the local storage
-
+      if(localStorage()){
+        var part = {
+          name: this.name,
+          description: this.description,
+          price: this.price,
+          category: this.category
+        }
+        localStorage.setItem(this.name, JSON.stringify(part))
+      }else{
+        alert("No se puede guardar el producto")
+      }
     }
   }
 }

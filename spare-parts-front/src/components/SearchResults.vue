@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="section">
-      <div class="columns">
+      <div class="columns ">
         <!--First Column, to contain the side menu containing categories-->
         <div class="column is-one-third selection-box">
           <h1 class="title is-large">Tus Vehículos</h1>
@@ -33,17 +33,17 @@
         <div class="column">
           <div class="is-ancestor">
             <div class="tile is-vertical">
-              <div class="tile box" v-for="product in products" :key="product.name">
+              <div class="tile box is-fullwidth" v-for="product in products" :key="product.name">
                 <div class="columns">
                   <div class="column"> <!--Column to display the image-->
                     <img :src="product.img">
                   </div>
                   <div class="column"><!--Column to display the description-->
-                    <h1 class="title is-small">{{product.name}}</h1>
-                    <h1 class="title is-small">{{product.category}}</h1>
+                    <h1 class="title">{{product.name}}</h1>
+                    <h2 class="subtitle ">{{product.category}}</h2>
                   </div>
-                  <div class="column"><!--Column to display the price-->
-                    <h1 class="title is-medium">Q {{product.price}}</h1>
+                  <div class="column item"><!--Column to display the price-->
+                    <h1 class="title ">Q {{product.price}}</h1>
                   </div>
                 </div>
               </div>
@@ -69,6 +69,7 @@ name: "SearchResults",
         {make: "Volvo", model: "C30"},
         {make: "Mitsubishi", model: "Eclipse Cross"},
       ],
+
       years: [
         2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020
       ],
@@ -102,6 +103,13 @@ name: "SearchResults",
 
 .selection-box h3 {
   color: white;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: flex-end;
 }
 
 </style>
