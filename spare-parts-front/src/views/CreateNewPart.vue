@@ -2,25 +2,25 @@
   <div>
     <app-header></app-header>
     <options-bar></options-bar>
-    <main-menu></main-menu>
+    <create-part></create-part>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import AppHeader from '@/components/AppHeader'
+import CreatePart from "@/components/CreatePart";
+import AppHeader from "@/components/AppHeader";
 import OptionsBar from "@/components/OptionsBar";
-import MainMenu from "@/components/MainMenu";
 
 export default {
-  name: 'Home',
+name: "CreateNewPart",
   components: {
     AppHeader,
     OptionsBar,
-    MainMenu
-  },
-  methods: {
-
+    CreatePart
   }
 }
 </script>
+
+<style scoped>
+
+</style>
