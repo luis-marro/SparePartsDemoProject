@@ -83,12 +83,14 @@ name: "SearchResults",
         {name: "Turbocargador", category: "Motor", price: 2300, img: "../../public/StockPhotos/turbo.jpg"},
         {name: "Supercargador", category: "Motor", price: 2000, img: "../../public/StockPhotos/SuperCharger.png"},
         {name: "Termostato", category: "Motor", price: 400, img: "../../public/StockPhotos/thermostat.jpg"}
-      ]
+      ],
+      query: '',
     }
   },
-  methods: {
+  mounted() {
+  },
 
-  }
+
 }
 </script>
 

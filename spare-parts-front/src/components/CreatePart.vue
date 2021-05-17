@@ -42,6 +42,15 @@
                       <input class="input" type="text" placeholder="Precio" v-model="price">
                     </div>
                   </div>
+                  <!--DIV for the inventory of the part-->
+                  <div class="field">
+                    <label class="label">
+                      Inventario
+                    </label>
+                    <div class="control">
+                      <input class="input" type="text" placeholder="Inventario" v-model="inventory">
+                    </div>
+                  </div>
                   <div class="field">
                     <label>Categoría</label>
                     <div class="control">
@@ -65,6 +74,7 @@
                     <div class="select  is-loading is-fullwidth mb-3">
                       <select v-model="model">
                         <option value="" disabled selected>Modelo</option>
+                        <option v-for="model in cars.model" :key="model">{{model}}</option>
                       </select>
                     </div>
                     <div class="select is-fullwidth mb-3">
@@ -72,9 +82,6 @@
                         <option value="" disabled selected>Año</option>
                         <option v-for="year in years" :key="year">{{year}}</option>
                       </select>
-                    </div>
-                    <div class="control is-success is-fullwidth mb-3">
-                      <button class="button is-fullwidth">Agregar</button>
                     </div>
                   </div>
                 </div>
@@ -109,12 +116,13 @@ name: "CreatePart",
   data() {
     return {
       name: "",
-      price: "",
+      price: 0.00,
       description: "",
       selectedCategory: "",
       make: "",
       model: "",
       year: "",
+      inventory: 0,
       categories: [
           "Frenos",
           "Motor",
@@ -140,18 +148,42 @@ name: "CreatePart",
     }
   },
   methods: {
-    saveProduct: function (){
-      // add the product to the local storage
-      if(localStorage()){
-        var part = {
+    saveProduct: async function (){
+      const partInformation = JSON.stringify({
           name: this.name,
           description: this.description,
-          price: this.price,
-          category: this.category
-        }
-        localStorage.setItem(this.name, JSON.stringify(part))
-      }else{
-        alert("No se puede guardar el producto")
+          price: parseFloat(this.price),
+          category: this.category,
+          Inventory: Number(this.inventory),
+          carMake: this.make,
+          carModel: 'S40 T5'
+        })
+      console.log('Body: ' + partInformation)
+      const url = 'https://carssparepartsstore.appspot.com/api/v1/createPart'
+      const options = {
+        method: 'POST',
+        body: partInformation
+      }
+      try {
+        console.log('Calling API')
+        // TODO Figure out error on binding the JSON to the backend definition
+        const response = await fetch(url, options)
+        console.log('Successfully called the API ')
+        const resData = await response.text()
+        console.log('Ontained JSON Response: ' + resData)
+        alert(resData)
+        // clear the fields
+        this.name= ""
+        this.price = ""
+        this.description = ""
+            this.selectedCategory = ""
+            this.make = ""
+            this.model =  ""
+            this.year = ""
+            this.inventory = 0
+      }catch(error){
+        console.log('Error saving the new part, ' + error)
+        alert('Error guardando el repuesto, por favor reintente en un momento')
       }
     }
   }

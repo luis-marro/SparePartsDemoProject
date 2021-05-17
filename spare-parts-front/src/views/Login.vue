@@ -27,7 +27,7 @@
                 <!--Input Fields-->
                 <div class="field">
                   <p class="control has-icons-left">
-                    <input class="input is-info is-medium" type="email" placeholder="Correo Electrónico">
+                    <input class="input is-info is-medium" type="email" placeholder="Correo Electrónico" v-model="this.email">
                     <span class="icon is-small is-left">
                       <img src="../../public/SVGs/email.svg">
                     </span>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="field">
                   <p class="control has-icons-left">
-                    <input class="input is-info is-medium" type="password" placeholder="Contraseña">
+                    <input class="input is-info is-medium" type="password" placeholder="Contraseña" v-model="this.password">
                     <span class="icon is-small is-left">
                       <img src="../../public/SVGs/lock.svg">
                     </span>
@@ -63,7 +63,7 @@
                 <router-link to="/">
                   <div class="field mb-3">
                     <div class="control is-fullwidth">
-                      <button class="button is-info">Iniciar Sesión</button>
+                      <button class="button is-info" v-on:click="doLogin">Iniciar Sesión</button>
                     </div>
                   </div>
                 </router-link>
@@ -85,7 +85,37 @@
 
 <script>
 export default {
-name: "Login"
+name: "Login",
+  data: () => {
+    return {
+      email : '',
+      password: ''
+    }
+  },
+  methods: {
+    doLogin: async function(){
+      const loginUrl = 'https://carssparepartsstore.appspot.com/api/v1/findUser'
+      const body = JSON.stringify({
+        unsafePassword : this.password,
+        email: this.email
+      })
+      console.log('user: ' + body)
+      const options = {
+        method: 'POST',
+        body: body
+      }
+      try {
+        const response = await fetch(loginUrl, options)
+        const resData = await response.text()
+        alert(resData)
+        console.log(resData)
+        alert('Bienvenida ' + resData.name)
+      }catch(error){
+        console.log(error)
+        alert('Error al iniciar sesión, vuelve a intentarlo')
+      }
+    }
+  }
 }
 </script>
 

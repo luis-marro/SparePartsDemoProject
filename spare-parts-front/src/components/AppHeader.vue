@@ -10,13 +10,13 @@
         <div class="column is-half">
           <div class="field has-addons">
             <div class="control is-expanded">
-              <input class="input is-info" type="text" placeholder="Qué repuesto estas buscando?">
+              <input class="input is-info" type="text" placeholder="Qué repuesto estas buscando?" v-model="querySearch">
             </div>
             <router-link to="/viewProducts">
               <div class="control">
-                <a class="button is-info">
+                <button class="button is-info" v-on:click="lookupPart">
                   <img src="../../public/SVGs/search-24px.svg">
-                </a>
+                </button>
               </div>
             </router-link>
           </div>
@@ -38,10 +38,25 @@
 </template>
 
 <script>
+
 export default {
 name: "AppHeader",
+  data: () =>{
+    return {
+      querySearch: '',
+      foundProducts: []
+    }
+  },
   methods: {
-
+    lookupPart: async function (){
+      const splitted = this.querySearch.replace(" ", "-")
+      const response = await fetch('https://carssparepartsstore.appspot.com/api/v1/searchParts?searchQuery=' + splitted)
+      const parts = await response.json()
+      console.log(parts)
+      parts.forEach(element => {
+        this.foundProducts.push(element)
+      })
+    }
   }
 }
 </script>

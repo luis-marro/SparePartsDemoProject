@@ -6,20 +6,21 @@
           <h2 class="title is-2">Selecciona tu Vehículo</h2>
           <div class="container ml-5 mr-5">
             <div class="select is-success is-fullwidth mb-3">
-              <select>
+              <select name="modelSelect" @change="makeChanged($event)" v-model="selectedMake">
                 <option value="" disabled selected> Marca</option>
-                <option v-for="make in makes" :key="make">{{make}}</option>
+                <option v-for="(make, index) in this.makes" :key="`make-${index}`">{{make}}</option>
               </select>
             </div>
-            <div class="select is-success is-loading is-fullwidth mb-3">
+            <div class="select is-success is-fullwidth mb-3">
               <select>
                 <option value="" disabled selected>Modelo</option>
+                <option v-for="(model, index) in this.models" :key="`models-${index}`">{{model}}</option>
               </select>
             </div>
             <div class="select is-success is-fullwidth mb-3">
               <select>
                 <option value="" disabled selected>Año</option>
-                <option v-for="year in years" :key="year">{{year}}</option>
+                <option v-for="year in data.years" :key="year">{{year}}</option>
               </select>
             </div>
             <div class="control is-success is-fullwidth mb-3">
@@ -63,24 +64,44 @@
 <script>
 export default {
 name: "MainMenu",
-  data() {
+  data: () => { // data()
     return {
-      cars : [
-        {make: "Mitsubishi", model: "Lancer"},
-        {make: "Mazda", model: "Mazda3"},
-        {make: "Mazda", model: "Mazda6"},
-        {make: "Volvo", model: "S40"},
-        {make: "Volvo", model: "C30"},
-        {make: "Mitsubishi", model: "Eclipse Cross"},
-      ],
-      years: [
-        2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020
-      ],
-      makes : [
-          "Mitsubishi",
-          "Mazda",
-          "Volvo",
-      ]
+      data: {
+        selectedMake: null,
+        makes : [],
+        models: [],
+        years: []
+      }
+    }
+  },
+   async mounted(){
+     await this.getCars()
+     await this.populateYears()
+  },
+  methods: {
+   async getCars(){
+      const res = await fetch('https://carssparepartsstore.appspot.com/api/v1/getAllCars')
+      console.log("Retrieved the data")
+      const resData = await res.json()
+      console.log("Makes: " + resData.Makes)
+      return resData.Makes
+    },
+    async makeChanged(event){
+      console.log(event.target.value)
+      const res = await fetch('https://carssparepartsstore.appspot.com/api/v1/getSpecificCar?carMake=' + event.target.value)
+      this.models = res.json()
+      console.log(this.models)
+    },
+    populateYears(){
+      const start = 1998
+      const year = new Date().getFullYear()
+      this.years.splice(year - start)
+      let posCounter = 0
+      for (let i = start; i < year; i++){
+        this.set(this.years, posCounter, i)
+        posCounter++
+      }
+      console.log(this.years)
     }
   }
 }
